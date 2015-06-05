@@ -1,6 +1,6 @@
 {
   "name": "bitrix-frontend",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "authors": [
     "jmaks1 <my.mailname@mail.ru>"
   ],
@@ -14,7 +14,6 @@
   ],
   "dependencies": {
     "jquery": "2.*",
-    "bootstrap": "*",
     "bootstrap-sass": "*"
   }
 }

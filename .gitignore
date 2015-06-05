@@ -48,3 +48,8 @@ node_modules
 bower_components
 bitrix
 upload
+
+local/templates/main/fonts
+local/templates/main/images
+local/templates/main/script.js
+local/templates/main/template_styles.css

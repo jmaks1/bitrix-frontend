@@ -13,34 +13,29 @@ var gulp        = require('gulp'),
     pngquant    = require('imagemin-pngquant'), // Сжатие картинок | работа с PNG
     spritesmith = require('gulp.spritesmith');  // Создание png спрайтов
 
-// bitrix defaults
-var bitrix = {
-    local: 'local/templates/main/',
-};
 // write routs
 var path = {
-    // result
     build: {
-        js:    bitrix.local,
-        css:   bitrix.local,
-        img:   bitrix.local+'/images/',
-        fonts: bitrix.local+'/fonts/'
+        js:            'local/templates/main/',
+        css:           'local/templates/main/',
+        images:        'local/templates/main/images/',
+        fonts:         'local/templates/main/fonts/',
+        fontsBootstrap:'local/templates/main/fonts/bootstrap/'
     },
-    // develop
     src: {
-        js:      'src/js/script.js',
-        styles:  'src/styles/template_styles.scss',
-        styles_partials:'src/styles/partials/',
-        sprite_template:'src/sass.template.mustache',
-        img:     'src/img/**/*.*',
-        sprite:  'src/sprite/*.*',
-        fonts:   'src/fonts/**/*.*'
+        js:            'src/js/script.js',
+        styles:        'src/styles/template_styles.scss',
+        stylesPartials:'src/styles/partials/',
+        spriteTemplate:'src/sass.template.mustache',
+        images:        'src/images/**/*.*',
+        sprite:        'src/sprite/*.*',
+        fonts:         'src/fonts/**/*.*',
+        fontsBootstrap:'bower_components/bootstrap-sass/assets/fonts/bootstrap/*.*'
     },
-    // watch for develop
     watch: {
         js:    'src/js/**/*.js',
         styles:'src/styles/**/*.scss',
-        img:   'src/img/**/*.*',
+        images:'src/images/**/*.*',
         sprite:'src/sprite/*.*',
         fonts: 'src/fonts/**/*.*'
     }
@@ -65,14 +60,24 @@ gulp.task('sprite:build', function() {
                 cssFormat: 'scss',
                 algorithm: 'binary-tree',
                 padding: 20,
-                cssTemplate: path.src.sprite_template,
+                cssTemplate: path.src.spriteTemplate,
                 cssVarMap: function(sprite) {
                     sprite.name = 's-' + sprite.name
                 }
             }));
 
-    spriteData.img.pipe(gulp.dest(path.build.img));
-    spriteData.css.pipe(gulp.dest(path.src.styles_partials));
+    spriteData.img.pipe(gulp.dest(path.build.images));
+    spriteData.css.pipe(gulp.dest(path.src.stylesPartials));
+});
+
+gulp.task('icons:build', function() {
+    return gulp.src(path.src.fontsBootstrap)
+        .pipe(gulp.dest(path.build.fontsBootstrap));
+});
+
+gulp.task('fonts:build', function() {
+    gulp.src(path.src.fonts)
+        .pipe(gulp.dest(path.build.fonts))
 });
 
 gulp.task('styles:build', function () {
@@ -85,27 +90,24 @@ gulp.task('styles:build', function () {
         .pipe(gulp.dest(path.build.css)) // И в build
 });
 
-gulp.task('fonts:build', function() {
-    gulp.src(path.src.fonts)
-        .pipe(gulp.dest(path.build.fonts))
-});
-
 gulp.task('image:build', function () {
-    gulp.src(path.src.img) //Выберем наши картинки
+    gulp.src(path.src.images) //Выберем наши картинки
         .pipe(imagemin({   //Сожмем их
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
             use: [pngquant()],
             interlaced: true
         }))
-        .pipe(gulp.dest(path.build.img))
+        .pipe(gulp.dest(path.build.images))
 });
+
 
 gulp.task('build', [
     'js:build',
     'sprite:build',
-    'styles:build',
+    'icons:build',
     'fonts:build',
+    'styles:build',
     'image:build',
 ]);
 
@@ -122,7 +124,7 @@ gulp.task('watch', function(){
     watch([path.watch.fonts], function(event, cb) {
         gulp.start('fonts:build');
     });
-    watch([path.watch.img], function(event, cb) {
+    watch([path.watch.images], function(event, cb) {
         gulp.start('image:build');
     });
 });

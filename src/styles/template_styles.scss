@@ -1,12 +1,16 @@
-// bootstrap sass
+// set path for icons
+$icon-font-path: "fonts/bootstrap/";
+// include bootstrap sass
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
-// variables
+
+
+// include variables
 @import "partials/variables";
-// sprite
+// include sprite
 @import "partials/sprite";
-// mixin
+// include mixin
 @import "partials/mixin";
-// fonts
+// include fonts
 @import "partials/fonts";
 
 body {
