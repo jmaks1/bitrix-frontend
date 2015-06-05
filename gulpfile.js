@@ -15,7 +15,7 @@ var gulp        = require('gulp'),
 
 // bitrix defaults
 var bitrix = {
-    local: 'local/templates/template_name/',
+    local: 'local/templates/main/',
 };
 // write routs
 var path = {
