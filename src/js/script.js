@@ -1,13 +1,12 @@
-/*
- * Third party
- */
-//= ../../bower_components/jquery/dist/jquery.js
+// include jquery
+//= ../../bower_components/jquery/dist/jquery.min.js
 
-$(document).ready(function(){
-	console.log('wow cool');
-});
+// include bootstrap.js
+//= ../../bower_components/bootstrap/js/modal.js
 
-/*
- * Custom
- */
+
+console.log("i'm a live!");
+
+
+// another scripts
 //= partials/app.js

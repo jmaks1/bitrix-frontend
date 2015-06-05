@@ -1,7 +1,4 @@
-<?php
-if(!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true)
-	die();
-?>
+<?php if(!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -19,5 +16,7 @@ if(!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true)
 	</head>
 <body>
 <div id="panel">
-	<?$APPLICATION->ShowPanel();?>
+	<?php $APPLICATION->ShowPanel();?>
 </div>
+
+<h1><a href="https://krayt.ru/" class="logo"></a> I <strike>hate</strike> love bitrix!</h1>

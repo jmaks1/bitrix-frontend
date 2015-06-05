@@ -1,54 +1,29 @@
-// colors
-$color-gray:#4a4a51;
-
 // bootstrap sass
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
-// sprite sass
+// variables
+@import "partials/variables";
+// sprite
 @import "partials/sprite";
-// mixin sass
+// mixin
 @import "partials/mixin";
-
+// fonts
+@import "partials/fonts";
 
 body {
-	background-color:$color-gray;
-	color:#fff;
+	font-family: "Segoe", sans-serif;
+	color:$color-egg;
 }
 
-/* custom
+/* custom styles
 -----------------------------*/
 
-.btn {
-	@include sprite($s-arrow-left);
-	&:hover,
-	&:active {
-		@include spriteImage($s-active-arrow-left);
-		@include spritePosition($s-active-arrow-left);
-	}
+.logo {
+	@include sprite($s-krayt);
 }
-
 
 /* header styles
 -----------------------------*/
 
-.header {
-	background-color:#fff;
-	height:120px;
-	margin-top:20px;
-
-	& .logo {
-		@include sprite($s-logo);
-	}
-	& .menu {
-		list-style: none;
-		font-size:0;
-		& li {
-			display: inline-block;
-			& a {
-				display: block;
-			}
-		}
-	}
-}
 
 /* content styles
 -----------------------------*/

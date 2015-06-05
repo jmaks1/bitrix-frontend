@@ -1,1 +1,0 @@
-console.log('scripts from app.js');
