@@ -1,0 +1,58 @@
+// colors
+$color-gray:#4a4a51;
+
+// bootstrap sass
+@import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
+// sprite sass
+@import "partials/sprite";
+// mixin sass
+@import "partials/mixin";
+
+
+body {
+	background-color:$color-gray;
+	color:#fff;
+}
+
+/* custom
+-----------------------------*/
+
+.btn {
+	@include sprite($s-arrow-left);
+	&:hover,
+	&:active {
+		@include spriteImage($s-active-arrow-left);
+		@include spritePosition($s-active-arrow-left);
+	}
+}
+
+
+/* header styles
+-----------------------------*/
+
+.header {
+	background-color:#fff;
+	height:120px;
+	margin-top:20px;
+
+	& .logo {
+		@include sprite($s-logo);
+	}
+	& .menu {
+		list-style: none;
+		font-size:0;
+		& li {
+			display: inline-block;
+			& a {
+				display: block;
+			}
+		}
+	}
+}
+
+/* content styles
+-----------------------------*/
+
+
+/* footer styles
+-----------------------------*/

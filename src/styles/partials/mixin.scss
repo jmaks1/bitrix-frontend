@@ -1,0 +1,22 @@
+@mixin spriteWidth($sprite) { width: nth($sprite, 5); }
+@mixin spriteHeight($sprite) { height: nth($sprite, 6); }
+@mixin spritePosition($sprite) { background-position: nth($sprite, 3) nth($sprite, 4); }
+@mixin spriteImage($sprite) { background-image: url(images/ nth($sprite, 9)); }
+
+@mixin sprite($sprite) {
+  @include spriteImage($sprite);
+  @include spritePosition($sprite);
+  @include spriteWidth($sprite);
+  @include spriteHeight($sprite);
+  display: inline-block;
+}
+
+@mixin btn($height, $color) {
+	display:inline-block;
+	color:#fff;
+	background-color:$color;
+	height: $height;
+	line-height:$height;
+	border-radius: $height / 2;
+	padding:0 $height / 2;
+}

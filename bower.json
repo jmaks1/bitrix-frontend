@@ -1,0 +1,20 @@
+{
+  "name": "bitrix-frontend",
+  "version": "0.0.0",
+  "authors": [
+    "jmaks1 <my.mailname@mail.ru>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "2.*",
+    "bootstrap": "*"
+    "bootstrap-sass": "*"
+  }
+}
