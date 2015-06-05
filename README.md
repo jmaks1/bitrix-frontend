@@ -1,4 +1,4 @@
-# bitrix-frontend width bootstrap-sass 
+# bitrix-frontend with bootstrap-sass 
 for fast frontend-develop on bitrix<br>
 <b>development template should be in "local"</b>
 
