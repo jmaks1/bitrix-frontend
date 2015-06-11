@@ -11,7 +11,8 @@ var gulp        = require('gulp'),
     cssmin      = require('gulp-minify-css'),   // Сжатие CSS кода
     imagemin    = require('gulp-imagemin'),     // Сжатие картинок
     pngquant    = require('imagemin-pngquant'), // Сжатие картинок | работа с PNG
-    spritesmith = require('gulp.spritesmith');  // Создание png спрайтов
+    spritesmith = require('gulp.spritesmith'),  // Создание png спрайтов
+    plumber     = require('gulp-plumber');      // Ловим ошибки, чтобы не прервался watch
 
 // write routs
 var path = {
@@ -44,11 +45,38 @@ var path = {
 
 gulp.task('js:build', function () {
     gulp.src(path.src.js)               // Найдем наш main файл
+        .pipe(plumber())
         .pipe(rigger())                 // Прогоним через rigger
         .pipe(sourcemaps.init())        // Инициализируем sourcemap
         .pipe(uglify())                 // Сожмем наш js
         .pipe(sourcemaps.write())       // Пропишем карты
+        .pipe(plumber.stop())
         .pipe(gulp.dest(path.build.js)) // Выплюнем готовый файл в build
+});
+
+gulp.task('styles:build', function () {
+    gulp.src(path.src.styles)            // Выберем наш main.scss
+        .pipe(plumber())
+        .pipe(sourcemaps.init())         // То же самое что и с js
+        .pipe(sass())                    // Скомпилируем
+        .pipe(prefixer())                // Добавим вендорные префиксы
+        .pipe(cssmin())                  // Сожмем
+        .pipe(sourcemaps.write())        // Пропишем карты
+        .pipe(plumber.stop())
+        .pipe(gulp.dest(path.build.css)) // И в build
+});
+
+gulp.task('image:build', function () {
+    gulp.src(path.src.images) //Выберем наши картинки
+        .pipe(plumber())
+        .pipe(imagemin({   //Сожмем их
+            progressive: true,
+            svgoPlugins: [{removeViewBox: false}],
+            use: [pngquant()],
+            interlaced: true
+        }))
+        .pipe(plumber.stop())
+        .pipe(gulp.dest(path.build.images))
 });
 
 gulp.task('sprite:build', function() {
@@ -71,7 +99,7 @@ gulp.task('sprite:build', function() {
 });
 
 gulp.task('icons:build', function() {
-    return gulp.src(path.src.fontsBootstrap)
+    gulp.src(path.src.fontsBootstrap)
         .pipe(gulp.dest(path.build.fontsBootstrap));
 });
 
@@ -79,28 +107,6 @@ gulp.task('fonts:build', function() {
     gulp.src(path.src.fonts)
         .pipe(gulp.dest(path.build.fonts))
 });
-
-gulp.task('styles:build', function () {
-    gulp.src(path.src.styles)            // Выберем наш main.scss
-        .pipe(sourcemaps.init())         // То же самое что и с js
-        .pipe(sass())                    // Скомпилируем
-        .pipe(prefixer())                // Добавим вендорные префиксы
-        .pipe(cssmin())                  // Сожмем
-        .pipe(sourcemaps.write())        // Пропишем карты
-        .pipe(gulp.dest(path.build.css)) // И в build
-});
-
-gulp.task('image:build', function () {
-    gulp.src(path.src.images) //Выберем наши картинки
-        .pipe(imagemin({   //Сожмем их
-            progressive: true,
-            svgoPlugins: [{removeViewBox: false}],
-            use: [pngquant()],
-            interlaced: true
-        }))
-        .pipe(gulp.dest(path.build.images))
-});
-
 
 gulp.task('build', [
     'js:build',

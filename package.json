@@ -1,5 +1,5 @@
 {
-  "name": "bitrix-frontend",
+  "name": "frontend-bitrix",
   "version": "1.0.0",
   "description": "",
   "author": "jmaks",
@@ -15,6 +15,7 @@
     "gulp-watch": "^4.1.1",
     "gulp-imagemin": "^2.2.1",
     "imagemin-pngquant": "^4.0.0",
-    "gulp.spritesmith": "latest"
+    "gulp.spritesmith": "latest",
+    "gulp-plumber": "latest"
   }
 }
