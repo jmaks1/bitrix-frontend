@@ -1,2 +1,23 @@
-// colors
-$color-egg:#00cccc;
+$fonts: (
+	openSans: ('Open Sans', sans-serif),
+	verdana: (Verdana, Geneva, sans-serif),
+);
+
+$colors: (
+	black: #000000,
+	egg: #00cccc,
+	white: #ffffff
+);
+
+$z-layers: (
+  bottomless-pit: -9999,
+  default: 1,
+  aboveBx: 1030,
+);
+
+//bitrix ie class
+$ieSprite: '.bx-ie9' !default;
+$spriteSvg: map-get($icons, sprite) !default;
+
+$baseFontSize: 14px !default;
+$baseLineHeight: 24px !default;

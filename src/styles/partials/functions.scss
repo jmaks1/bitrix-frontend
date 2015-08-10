@@ -1,0 +1,80 @@
+// transform px to em
+@function px2em($px, $base-font-size: $baseFontSize) {
+    @if unitless($px) {
+        @warn "Assuming #{$px} to be in pixels, attempting to convert it into pixels.";
+        @return px2em($px + 0px); // That may fail.
+    } @else if unit($px) == em {
+        @return $px;
+    }
+    @return ($px / $base-font-size) * 1em;
+}
+
+// Gets an attribute from the sass map
+@function sprite-attr($icon, $attr) {
+    $newIcon: map-get($icons, $icon);
+    @if $newIcon == null {
+        @warn "Can't find an icon with the name #{$icon}";
+    }
+    @return map-get($newIcon, $attr);
+}
+@function icon-attr($icon) {
+    $attr: (
+        width: sprite-attr($icon, width),
+        height: sprite-attr($icon, height),
+        x: sprite-attr($icon, backgroundX),
+        y: sprite-attr($icon, backgroundY)
+    );
+
+    @return $attr;
+}
+
+// Simple functions for pick from the sass map
+// fonts
+@function font($key) {
+  @if map-has-key($fonts, $key) {
+    @return map-get($fonts, $key);
+  }
+
+  @warn "Unknown `#{$key}` in $fonts.";
+  @return null;
+}
+
+// colors
+@function color($key) {
+  @if map-has-key($colors, $key) {
+    @return map-get($colors, $key);
+  }
+
+  @warn "Unknown `#{$key}` in $colors.";
+  @return null;
+}
+
+// z-index
+@function z($key) {
+  @if map-has-key($z-layers, $key) {
+    @return map-get($z-layers, $key);
+  }
+
+  @warn "Unknown `#{$key}` in $z-layers.";
+  @return null;
+}
+
+// height
+@function height($key) {
+  @if map-has-key($height, $key) {
+    @return map-get($height, $key);
+  }
+
+  @warn "Unknown `#{$key}` in $height.";
+  @return null;
+}
+
+//width
+@function width($key) {
+  @if map-has-key($width, $key) {
+    @return map-get($width, $key);
+  }
+
+  @warn "Unknown `#{$key}` in $width.";
+  @return null;
+}

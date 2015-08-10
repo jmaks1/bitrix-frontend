@@ -4,18 +4,25 @@ $icon-font-path: "fonts/bootstrap/";
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
 
 
-// include variables
-@import "partials/variables";
-// include sprite
-@import "partials/sprite";
-// include mixin
-@import "partials/mixin";
 // include fonts
 @import "partials/fonts";
+// include sprite
+@import "partials/sprite";
+// include sprite-svg
+@import "partials/sprite-svg";
+// include variables
+@import "partials/variables";
+// include functions
+@import "partials/functions";
+// include mixin
+@import "partials/mixin";
+
 
 body {
-	font-family: "Segoe", sans-serif;
-	color:$color-egg;
+	font-family: font(verdana);
+	color: color(egg);
+	font-size: $baseFontSize;
+	line-height: $baseLineHeight;
 }
 
 /* custom styles

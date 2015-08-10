@@ -1,22 +1,167 @@
+// Simple png sprite
 @mixin spriteWidth($sprite) { width: nth($sprite, 5); }
 @mixin spriteHeight($sprite) { height: nth($sprite, 6); }
 @mixin spritePosition($sprite) { background-position: nth($sprite, 3) nth($sprite, 4); }
 @mixin spriteImage($sprite) { background-image: url(images/ nth($sprite, 9)); }
-
 @mixin sprite($sprite) {
-  @include spriteImage($sprite);
-  @include spritePosition($sprite);
-  @include spriteWidth($sprite);
-  @include spriteHeight($sprite);
-  display: inline-block;
+	@include spriteImage($sprite);
+	@include spritePosition($sprite);
+	@include spriteWidth($sprite);
+	@include spriteHeight($sprite);
+	display: inline-block;
 }
 
-@mixin btn($height, $color) {
-	display:inline-block;
-	color:#fff;
-	background-color:$color;
+// Svg sprite
+// Sets background image and size with IE fallback
+%sprite-svg {
+    display: inline-block;
+    background-image: url(map-get($spriteSvg, svgPath));
+    background-size: px2em(map-get($spriteSvg, width)) px2em(map-get($spriteSvg, height));
+}
+%ie-sprite-svg {
+    background-image: url(map-get($spriteSvg, pngPath));
+}
+@mixin ie-spriteSvg($icon, $type: all) {
+	$iconMap: icon-attr($icon);
+
+	@if $ieSprite {
+		#{$ieSprite} & {
+			@if $type == all {
+				// Shares the PNG background
+				@extend %ie-sprite-svg;
+			}
+			// Outputs dimensions of icon
+			// @if $type == all or $type == size {
+			// 	width: map-get($iconMap, width);
+			// 	height: map-get($iconMap, height);
+			// }
+			// // Outputs background position
+			// @if $type == all or $type == bg {
+			// 	background-position: (map-get($iconMap, x)) (map-get($iconMap, y));
+			// }
+		}
+	}
+}
+// For use with the gulp sprite plugin
+@mixin spriteSvg($icon, $type: all) {
+    @if $type == all {
+        // Shares the backgrounds
+        @extend %sprite-svg;
+    }
+
+    $iconMap: icon-attr($icon);
+
+    // Outputs dimensions in em
+    @if $type == all or $type == width {
+        width: px2em(map-get($iconMap, width) + 1);
+    }
+    // Outputs dimensions in em
+    @if $type == all or $type == height {
+        height: px2em(map-get($iconMap, height) + 1);
+    }
+
+    // Outputs background position in em | -5px because spacing:5
+    @if $type == all or $type == bg {
+        background-position: px2em(map-get($iconMap, x) - 5) px2em(map-get($iconMap, y) - 5);
+    }
+
+    // Add ie fallback
+	@include ie-spriteSvg($icon, $type);
+}
+
+// breakpoints with bootstrap sizes
+@mixin breakpoint($point) {
+	@if $point == lg {
+		@media (min-width: $screen-lg-min) { @content ; }
+	}
+	@else if $point == md {
+		@media (min-width: $screen-md-min) { @content ; }
+	}
+	@else if $point == sm {
+		@media (min-width: $screen-sm-min) { @content ; }
+	}
+	@else if $point == xs {
+		@media (max-width: $screen-xs-max) { @content ; }
+	}
+}
+
+@mixin btn($height, $c-bg, $c-text: #fff, $font-size: 14px, $display: inline-block, $rounded: true) {
+	//@warn "height = #{$height}";
+	//@debug "height = #{$height}";
+	@if $rounded {
+		border-radius: $height / 2;
+	}
 	height: $height;
 	line-height:$height;
-	border-radius: $height / 2;
 	padding:0 $height / 2;
+	display: $display;
+	background-color:$c-bg;
+	color: $c-text;
+	font-size: px2em($font-size);
+	text-align: center;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	border: 1px solid transparent;
+	white-space: nowrap;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	text-decoration:none;
+	//@include transition(background-color $transition ease);
+	&:hover,
+	&:active,
+	&:focus {
+		color: $c-text;
+		text-decoration:none;
+		outline: none;
+	}
+}
+
+@mixin format-text($font-size: 14px, $font-weight: 500, $color: false, $line-height: false) {
+	font-size: px2em($font-size);
+	font-weight: $font-weight;
+
+	@if $color {
+		color:$color;
+	}
+
+	@if $line-height {
+		line-height: px2em($line-height);
+	}
+	@else {
+		line-height: 100%;
+	}
+}
+
+
+@mixin center {
+	position:absolute;
+	margin:auto;
+	left:0;
+	top:0;
+	right:0;
+	bottom:0;
+}
+
+// add muted bg
+@mixin muted($color: #000, $opacity: 0.5) {
+	position:relative;
+	&:before {
+		content:'';
+		position:absolute;
+		left:0;
+		right:0;
+		top:0;
+		bottom:0;
+		background-color:rgba($color, $opacity);
+	}
+}
+
+@mixin background-type($size: cover) {
+	background-position: center center;
+	background-size: $size;
+	background-repeat: no-repeat;
 }
