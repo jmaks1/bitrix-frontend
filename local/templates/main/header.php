@@ -19,4 +19,4 @@
 	<?php $APPLICATION->ShowPanel();?>
 </div>
 
-<h1 class="text-center"><a href="https://krayt.ru/" class="logo" target="_blank"></a> I <strike>hate</strike> love bitrix!</h1>
+<h1 class="text-center"><span class="logo"></span> I <strike>hate</strike> love bitrix!</h1>
